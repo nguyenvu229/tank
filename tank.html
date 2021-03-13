@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <div style="width: 190px; height: 190px; border: 1px solid black;" id="battleFiled">
+  <img id="tank" src="tank.png" style="position: relative; top: 0px; left: 0px;" width="19" height="19">
+  </div>
+
+  <table>
+    <tr>
+      <td></td>
+      <td>
+        <input type="button" value="⬆" onclick="moveUp()">
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <input type="button" value="⬅" onclick="moveLeft()">
+      </td>
+      <td></td>
+      <td>
+        <input type="button" value="➡" onclick="moveRight()">
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <input type="button" value="⬇" onclick="moveDown()">
+      </td>
+      <td></td>
+    </tr>
+  </table>
+
+
+  <script>
+
+    function moveUp() {
+      let top = document.getElementById("tank").style["top"]
+      top = parseInt(top)
+      top -= 19
+      if (top >= 0)
+        document.getElementById("tank").style["top"] = top + "px"
+    }
+
+    function moveDown() {
+      let down = document.getElementById("tank").style["top"]
+      down = parseInt(down)
+      down += 19
+      if (down < 190){
+
+        document.getElementById("tank").style["rotate"] = down + "px"
+        document.getElementById("tank").style["top"] = down + "px"
+      }
+    }
+
+    function moveLeft() {
+      let left = document.getElementById("tank").style["left"]
+      left = parseInt(left)
+      left -= 19
+      if (left >= 0)
+        document.getElementById("tank").style["left"] = left + "px"
+    }
+
+    function moveRight() {
+      let left = document.getElementById("tank").style["left"]
+      left = parseInt(left)
+      left += 19
+      if (left < 190)
+        document.getElementById("tank").style["left"] = left + "px"
+    }
+  </script>
+
+</body>
+
+</html>
