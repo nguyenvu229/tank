@@ -6,9 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>
-  <div style="width: 190px; height: 190px; border: 1px solid black;" id="battleFiled">
-  <img id="tank" src="tank.png" style="position: relative; top: 0px; left: 0px;" width="19" height="19">
+<body onkeydown = "moveTank(event)">
+  <div style="width: 190px; height: 190px; border: 2px solid black;" id="battleFiled">
+    <img id="tank" src="tank.png" style="position: relative; top: 0px; left: 0px;" width="19" height="19">
+    <img id="boom" src="boom.png" style="position: relative; top: 57px; left: 57px;" width="19" height="19">
   </div>
 
   <table>
@@ -39,37 +40,83 @@
 
 
   <script>
-
-    function moveUp() {
+    function getTop() {
       let top = document.getElementById("tank").style["top"]
       top = parseInt(top)
+      return top
+    }
+
+    function getLeft() {
+      let left = document.getElementById("tank").style["left"]
+      left = parseInt(left)
+      return left
+    }
+
+    function moveTank(e) {
+      let keyCode = e.key
+
+      if(keyCode == "ArrowUp") {
+        moveUp()
+      } else if(keyCode == "ArrowDown") {
+        moveDown()
+      } else if(keyCode == "ArrowLeft") {
+        moveLeft()
+      } else if(keyCode == "ArrowRight") {
+        moveRight()
+      }
+
+      let curTop = getTop()
+      let curLeft = getLeft()
+      explose(curTop, curLeft)
+    }
+
+    function moveUp() {
+      let top = getTop()
       top -= 19
-      if (top >= 0)
+      if (top >= 0) {
         document.getElementById("tank").style["top"] = top + "px"
+        document.getElementById("tank").style["transform"] = "rotate(0deg)"
+      }
     }
 
     function moveDown() {
-      let down = document.getElementById("tank").style["top"]
-      down = parseInt(down)
-      down += 19
-      if (down < 190)
-        document.getElementById("tank").style["top"] = down + "px"
+      let top = getTop()
+      top += 19
+      if (top < 190) {
+        document.getElementById("tank").style["top"] = top + "px"
+        document.getElementById("tank").style["transform"] = "rotate(180deg)"
+      }
     }
 
     function moveLeft() {
-      let left = document.getElementById("tank").style["left"]
-      left = parseInt(left)
+      let left = getLeft()
       left -= 19
-      if (left >= 0)
+      if (left >= 0) {
         document.getElementById("tank").style["left"] = left + "px"
+        document.getElementById("tank").style["transform"] = "rotate(270deg)"
+      }
     }
 
     function moveRight() {
-      let left = document.getElementById("tank").style["left"]
-      left = parseInt(left)
+      let left = getLeft()
       left += 19
-      if (left < 190)
+      if (left < 190) {
         document.getElementById("tank").style["left"] = left + "px"
+        document.getElementById("tank").style["transform"] = "rotate(90deg)"
+      }
+    }
+
+    function explose(curTop, curLeft) {
+      let boomTop = document.getElementById("boom").style["top"]
+      boomTop = parseInt(boomTop)
+      let boomLeft = document.getElementById("boom").style["left"]
+      boomLeft = parseInt(boomLeft)
+
+      if(curTop == boomTop && curLeft == boomLeft) {
+        document.getElementById("tank").src = "explosion.png"
+        // document.getElementById("tank").style.display = "explosion.png"
+        document.getElementById("boom").style.visibility = "hidden"
+      }
     }
   </script>
   
