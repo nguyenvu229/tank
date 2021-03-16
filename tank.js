@@ -73,15 +73,6 @@ function moveUp() {
     turnTank(UP)
   }
 
-
-  // let tankTop = getTop() - 19
-  // let notTouchUpBorder = (tankTop >= 0)
-
-  // if (notTouchUpBorder) {
-  //   setTankPosition("top", tankTop)
-  //   turnTank(UP)
-  // }
-
   if(stepIntoMine()) {
     explode()
   }
@@ -95,15 +86,6 @@ function moveDown() {
     setTankPosition("top", tankTop)
     turnTank(DOWN)
   }
-
-
-  // let tankTop = getTop() + 19
-  // let notTouchDownBorder = (tankTop < 190)
-
-  // if (notTouchDownBorder) {
-  //   setTankPosition("top", tankTop)
-  //   turnTank(DOWN)
-  // }
 
   if(stepIntoMine()) {
     explode()
@@ -119,15 +101,6 @@ function moveLeft() {
     turnTank(LEFT)
   }
 
-
-  // let tankLeft = getLeft() - 19
-  // let notTouchLeftBorder = (tankLeft >= 0)
-
-  // if (notTouchLeftBorder) {
-  //   setTankPosition("left", tankLeft)
-  //   turnTank(LEFT)
-  // }
-
   if(stepIntoMine()) {
     explode()
   }
@@ -141,15 +114,6 @@ function moveRight() {
     setTankPosition("left", tankLeft)
     turnTank(RIGHT)
   }
-
-
-  // let tankLeft = getLeft() + 19
-  // let notTouchRightBorder = (tankLeft < 190)
-  
-  // if (notTouchRightBorder) {
-  //   setTankPosition("left", tankLeft)
-  //   turnTank(RIGHT)
-  // }
 
   if(stepIntoMine()) {
     explode()
