@@ -1,3 +1,14 @@
+var mineTop
+var mineLeft
+
+function getMinePosition() {
+  mineTop = document.getElementById("boom").style["top"]
+  mineTop = parseInt(mineTop)
+  
+  mineLeft = document.getElementById("boom").style["left"]
+  mineLeft = parseInt(mineLeft)
+}
+
 function getTop() {
   let top = document.getElementById("tank").style["top"]
   top = parseInt(top)
@@ -10,21 +21,12 @@ function getLeft() {
   return left
 }
 
-function checkPosition() {
+function stepIntoMine() {
   let curTop = getTop()
   let curLeft = getLeft()
 
-  let boomTop = document.getElementById("boom").style["top"]
-  boomTop = parseInt(boomTop)
-  let boomLeft = document.getElementById("boom").style["left"]
-  boomLeft = parseInt(boomLeft)
-
-  if(curTop == boomTop && curLeft == boomLeft + 19) {
-    return 1
-  } 
-  else {
-    return 0
-  }
+  let check = (curTop == mineTop && curLeft == mineLeft + 19)
+  return check
 }
 
 function explode() {
@@ -34,6 +36,7 @@ function explode() {
 
 function moveTank(e) {
   let keyCode = e.key
+  getMinePosition()
 
   if(keyCode == "ArrowUp") {
     moveUp()
@@ -54,7 +57,7 @@ function moveUp() {
     document.getElementById("tank").style["transform"] = "rotate(0deg)"
   }
 
-  if(checkPosition() == 1) {
+  if(stepIntoMine()) {
     explode()
   }
 }
@@ -67,7 +70,7 @@ function moveDown() {
     document.getElementById("tank").style["transform"] = "rotate(180deg)"
   }
 
-  if(checkPosition() == 1) {
+  if(stepIntoMine()) {
     explode()
   }
 }
@@ -80,7 +83,7 @@ function moveLeft() {
     document.getElementById("tank").style["transform"] = "rotate(270deg)"
   }
 
-  if(checkPosition() == 1) {
+  if(stepIntoMine()) {
     explode()
   }
 }
@@ -93,7 +96,7 @@ function moveRight() {
     document.getElementById("tank").style["transform"] = "rotate(90deg)"
   }
 
-  if(checkPosition() == 1) {
+  if(stepIntoMine()) {
     explode()
   }
 }
