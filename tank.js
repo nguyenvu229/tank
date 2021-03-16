@@ -10,7 +10,7 @@ function getLeft() {
   return left
 }
 
-function explode() {
+function checkPosition() {
   let curTop = getTop()
   let curLeft = getLeft()
 
@@ -20,9 +20,16 @@ function explode() {
   boomLeft = parseInt(boomLeft)
 
   if(curTop == boomTop && curLeft == boomLeft + 19) {
+    return 1
+  } 
+  else {
+    return 0
+  }
+}
+
+function explode() {
     document.getElementById("tank").src = "explosion.png"
     document.getElementById("boom").style.visibility = "hidden"
-  }
 }
 
 function moveTank(e) {
@@ -37,6 +44,10 @@ function moveTank(e) {
   } else if(keyCode == "ArrowRight") {
     moveRight()
   }
+
+  if(checkPosition() == 1) {
+    explode()
+  }
 }
 
 function moveUp() {
@@ -46,7 +57,6 @@ function moveUp() {
     document.getElementById("tank").style["top"] = top + "px"
     document.getElementById("tank").style["transform"] = "rotate(0deg)"
   }
-  explode()
 }
 
 function moveDown() {
@@ -56,7 +66,6 @@ function moveDown() {
     document.getElementById("tank").style["top"] = top + "px"
     document.getElementById("tank").style["transform"] = "rotate(180deg)"
   }
-  explode()
 }
 
 function moveLeft() {
@@ -66,7 +75,6 @@ function moveLeft() {
     document.getElementById("tank").style["left"] = left + "px"
     document.getElementById("tank").style["transform"] = "rotate(270deg)"
   }
-  explode()
 }
 
 function moveRight() {
@@ -76,5 +84,4 @@ function moveRight() {
     document.getElementById("tank").style["left"] = left + "px"
     document.getElementById("tank").style["transform"] = "rotate(90deg)"
   }
-  explode()
 }
