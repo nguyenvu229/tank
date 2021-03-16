@@ -41,7 +41,7 @@ function explode() {
   document.getElementById("boom").style.visibility = "hidden"
 }
 
-function setTankPosition(tankStyle, position) {
+function pushTank(tankStyle, position) {
   document.getElementById("tank").style[tankStyle] = position + "px"
 }
 
@@ -69,7 +69,7 @@ function moveUp() {
   
   if(!isOnTop) {
     let tankTop = getTop() - 19
-    setTankPosition("top", tankTop)
+    pushTank("top", tankTop)
     turnTank(UP)
   }
 
@@ -83,7 +83,7 @@ function moveDown() {
   
   if(!isOnDown) {
     let tankTop = getTop() + 19
-    setTankPosition("top", tankTop)
+    pushTank("top", tankTop)
     turnTank(DOWN)
   }
 
@@ -97,7 +97,7 @@ function moveLeft() {
   
   if(!isOnLeft) {
     let tankLeft = getLeft() - 19
-    setTankPosition("left", tankLeft)
+    pushTank("left", tankLeft)
     turnTank(LEFT)
   }
 
@@ -111,7 +111,7 @@ function moveRight() {
   
   if(!isOnRight) {
     let tankLeft = getLeft() + 19
-    setTankPosition("left", tankLeft)
+    pushTank("left", tankLeft)
     turnTank(RIGHT)
   }
 
