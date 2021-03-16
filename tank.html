@@ -52,6 +52,21 @@
       return left
     }
 
+    function explode() {
+      let curTop = getTop()
+      let curLeft = getLeft()
+
+      let boomTop = document.getElementById("boom").style["top"]
+      boomTop = parseInt(boomTop)
+      let boomLeft = document.getElementById("boom").style["left"]
+      boomLeft = parseInt(boomLeft)
+
+      if(curTop == boomTop && curLeft == boomLeft + 19) {
+        document.getElementById("tank").src = "explosion.png"
+        document.getElementById("boom").style.visibility = "hidden"
+      }
+    }
+
     function moveTank(e) {
       let keyCode = e.key
 
@@ -104,21 +119,6 @@
         document.getElementById("tank").style["transform"] = "rotate(90deg)"
       }
       explode()
-    }
-
-    function explode() {
-      let curTop = getTop()
-      let curLeft = getLeft()
-
-      let boomTop = document.getElementById("boom").style["top"]
-      boomTop = parseInt(boomTop)
-      let boomLeft = document.getElementById("boom").style["left"]
-      boomLeft = parseInt(boomLeft)
-
-      if(curTop == boomTop && curLeft == boomLeft + 19) {
-        document.getElementById("tank").src = "explosion.png"
-        document.getElementById("boom").style.visibility = "hidden"
-      }
     }
   </script>
   
