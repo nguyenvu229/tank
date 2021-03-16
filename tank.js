@@ -1,5 +1,6 @@
 var mineTop
 var mineLeft
+getMinePosition()
 
 function getMinePosition() {
   mineTop = document.getElementById("boom").style["top"]
@@ -25,7 +26,7 @@ function stepIntoMine() {
   let curTop = getTop()
   let curLeft = getLeft()
 
-  let check = (curTop == mineTop && curLeft == mineLeft + 19)
+  let check = (curTop == mineTop && curLeft == mineLeft)
   return check
 }
 
@@ -34,9 +35,15 @@ function explode() {
   document.getElementById("boom").style.visibility = "hidden"
 }
 
+function setTankPosition(tankStyle, position, rotateDegrees) {
+  document.getElementById("tank").style[tankStyle] = position + "px"
+  
+  let rotate = "rotate(" + rotateDegrees + "deg)"
+  document.getElementById("tank").style["transform"] = rotate
+}
+
 function moveTank(e) {
   let keyCode = e.key
-  getMinePosition()
 
   if(keyCode == "ArrowUp") {
     moveUp()
@@ -50,11 +57,11 @@ function moveTank(e) {
 }
 
 function moveUp() {
-  let top = getTop()
-  top -= 19
-  if (top >= 0) {
-    document.getElementById("tank").style["top"] = top + "px"
-    document.getElementById("tank").style["transform"] = "rotate(0deg)"
+  let tankTop = getTop() - 19
+  let notTouchUpBorder = (tankTop >= 0)
+
+  if (notTouchUpBorder) {
+    setTankPosition("top", tankTop, 0)
   }
 
   if(stepIntoMine()) {
@@ -63,11 +70,11 @@ function moveUp() {
 }
 
 function moveDown() {
-  let top = getTop()
-  top += 19
-  if (top < 190) {
-    document.getElementById("tank").style["top"] = top + "px"
-    document.getElementById("tank").style["transform"] = "rotate(180deg)"
+  let tankTop = getTop() + 19
+  let notTouchDownBorder = (tankTop < 190)
+
+  if (notTouchDownBorder) {
+    setTankPosition("top", tankTop, 180)
   }
 
   if(stepIntoMine()) {
@@ -76,11 +83,11 @@ function moveDown() {
 }
 
 function moveLeft() {
-  let left = getLeft()
-  left -= 19
-  if (left >= 0) {
-    document.getElementById("tank").style["left"] = left + "px"
-    document.getElementById("tank").style["transform"] = "rotate(270deg)"
+  let tankLeft = getLeft() - 19
+  let notTouchLeftBorder = (tankLeft >= 0)
+
+  if (notTouchLeftBorder) {
+    setTankPosition("left", tankLeft, 270)
   }
 
   if(stepIntoMine()) {
@@ -89,11 +96,11 @@ function moveLeft() {
 }
 
 function moveRight() {
-  let left = getLeft()
-  left += 19
-  if (left < 190) {
-    document.getElementById("tank").style["left"] = left + "px"
-    document.getElementById("tank").style["transform"] = "rotate(90deg)"
+  let tankLeft = getLeft() + 19
+  let notTouchRightBorder = (tankLeft < 190)
+  
+  if (notTouchRightBorder) {
+    setTankPosition("left", tankLeft, 90)
   }
 
   if(stepIntoMine()) {
