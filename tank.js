@@ -44,10 +44,6 @@ function moveTank(e) {
   } else if(keyCode == "ArrowRight") {
     moveRight()
   }
-
-  if(checkPosition() == 1) {
-    explode()
-  }
 }
 
 function moveUp() {
@@ -56,6 +52,10 @@ function moveUp() {
   if (top >= 0) {
     document.getElementById("tank").style["top"] = top + "px"
     document.getElementById("tank").style["transform"] = "rotate(0deg)"
+  }
+
+  if(checkPosition() == 1) {
+    explode()
   }
 }
 
@@ -66,6 +66,10 @@ function moveDown() {
     document.getElementById("tank").style["top"] = top + "px"
     document.getElementById("tank").style["transform"] = "rotate(180deg)"
   }
+
+  if(checkPosition() == 1) {
+    explode()
+  }
 }
 
 function moveLeft() {
@@ -75,6 +79,10 @@ function moveLeft() {
     document.getElementById("tank").style["left"] = left + "px"
     document.getElementById("tank").style["transform"] = "rotate(270deg)"
   }
+
+  if(checkPosition() == 1) {
+    explode()
+  }
 }
 
 function moveRight() {
@@ -83,5 +91,9 @@ function moveRight() {
   if (left < 190) {
     document.getElementById("tank").style["left"] = left + "px"
     document.getElementById("tank").style["transform"] = "rotate(90deg)"
+  }
+
+  if(checkPosition() == 1) {
+    explode()
   }
 }
