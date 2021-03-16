@@ -30,8 +30,8 @@ function stepIntoMine() {
 }
 
 function explode() {
-    document.getElementById("tank").src = "explosion.png"
-    document.getElementById("boom").style.visibility = "hidden"
+  document.getElementById("tank").src = "explosion.png"
+  document.getElementById("boom").style.visibility = "hidden"
 }
 
 function moveTank(e) {
