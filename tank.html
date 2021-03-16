@@ -65,9 +65,7 @@
         moveRight()
       }
 
-      let curTop = getTop()
-      let curLeft = getLeft()
-      explose(curTop, curLeft)
+      explose()
     }
 
     function moveUp() {
@@ -106,13 +104,16 @@
       }
     }
 
-    function explose(curTop, curLeft) {
+    function explose() {
+      let curTop = getTop()
+      let curLeft = getLeft()
+
       let boomTop = document.getElementById("boom").style["top"]
       boomTop = parseInt(boomTop)
       let boomLeft = document.getElementById("boom").style["left"]
       boomLeft = parseInt(boomLeft)
 
-      if(curTop == boomTop && curLeft == boomLeft) {
+      if(curTop == boomTop && curLeft == boomLeft + 19) {
         document.getElementById("tank").src = "explosion.png"
         // document.getElementById("tank").style.display = "explosion.png"
         document.getElementById("boom").style.visibility = "hidden"
