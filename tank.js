@@ -1,3 +1,9 @@
+const UP = 0
+const DOWN = 180
+const LEFT = 270
+const RIGHT = 90
+
+
 var mineTop
 var mineLeft
 getMinePosition()
@@ -35,10 +41,12 @@ function explode() {
   document.getElementById("boom").style.visibility = "hidden"
 }
 
-function setTankPosition(tankStyle, position, rotateDegrees) {
+function setTankPosition(tankStyle, position) {
   document.getElementById("tank").style[tankStyle] = position + "px"
-  
-  let rotate = "rotate(" + rotateDegrees + "deg)"
+}
+
+function turnTank(rotate) {
+  rotate = "rotate(" + rotate + "deg)"
   document.getElementById("tank").style["transform"] = rotate
 }
 
@@ -57,12 +65,22 @@ function moveTank(e) {
 }
 
 function moveUp() {
-  let tankTop = getTop() - 19
-  let notTouchUpBorder = (tankTop >= 0)
-
-  if (notTouchUpBorder) {
-    setTankPosition("top", tankTop, 0)
+  let isOnTop = (getTop() == 0)
+  
+  if(!isOnTop) {
+    let tankTop = getTop() - 19
+    setTankPosition("top", tankTop)
+    turnTank(UP)
   }
+
+
+  // let tankTop = getTop() - 19
+  // let notTouchUpBorder = (tankTop >= 0)
+
+  // if (notTouchUpBorder) {
+  //   setTankPosition("top", tankTop)
+  //   turnTank(UP)
+  // }
 
   if(stepIntoMine()) {
     explode()
@@ -70,12 +88,22 @@ function moveUp() {
 }
 
 function moveDown() {
-  let tankTop = getTop() + 19
-  let notTouchDownBorder = (tankTop < 190)
-
-  if (notTouchDownBorder) {
-    setTankPosition("top", tankTop, 180)
+  let isOnDown = (getTop() == 190 - 19)
+  
+  if(!isOnDown) {
+    let tankTop = getTop() + 19
+    setTankPosition("top", tankTop)
+    turnTank(DOWN)
   }
+
+
+  // let tankTop = getTop() + 19
+  // let notTouchDownBorder = (tankTop < 190)
+
+  // if (notTouchDownBorder) {
+  //   setTankPosition("top", tankTop)
+  //   turnTank(DOWN)
+  // }
 
   if(stepIntoMine()) {
     explode()
@@ -83,12 +111,22 @@ function moveDown() {
 }
 
 function moveLeft() {
-  let tankLeft = getLeft() - 19
-  let notTouchLeftBorder = (tankLeft >= 0)
-
-  if (notTouchLeftBorder) {
-    setTankPosition("left", tankLeft, 270)
+  let isOnLeft = (getLeft() == 0)
+  
+  if(!isOnLeft) {
+    let tankLeft = getLeft() - 19
+    setTankPosition("left", tankLeft)
+    turnTank(LEFT)
   }
+
+
+  // let tankLeft = getLeft() - 19
+  // let notTouchLeftBorder = (tankLeft >= 0)
+
+  // if (notTouchLeftBorder) {
+  //   setTankPosition("left", tankLeft)
+  //   turnTank(LEFT)
+  // }
 
   if(stepIntoMine()) {
     explode()
@@ -96,12 +134,22 @@ function moveLeft() {
 }
 
 function moveRight() {
-  let tankLeft = getLeft() + 19
-  let notTouchRightBorder = (tankLeft < 190)
+  let isOnRight = (getLeft() == 190 - 19)
   
-  if (notTouchRightBorder) {
-    setTankPosition("left", tankLeft, 90)
+  if(!isOnRight) {
+    let tankLeft = getLeft() + 19
+    setTankPosition("left", tankLeft)
+    turnTank(RIGHT)
   }
+
+
+  // let tankLeft = getLeft() + 19
+  // let notTouchRightBorder = (tankLeft < 190)
+  
+  // if (notTouchRightBorder) {
+  //   setTankPosition("left", tankLeft)
+  //   turnTank(RIGHT)
+  // }
 
   if(stepIntoMine()) {
     explode()
