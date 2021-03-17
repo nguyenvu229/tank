@@ -28,12 +28,12 @@ function getLeft() {
   return left
 }
 
-function stepIntoMine() {
+function stepOnMine() {
   let curTop = getTop()
   let curLeft = getLeft()
 
-  let check = (curTop == mineTop && curLeft == mineLeft)
-  return check
+  let isOnMine = (curTop == mineTop && curLeft == mineLeft)
+  return isOnMine
 }
 
 function explode() {
@@ -73,7 +73,7 @@ function moveUp() {
     turnTank(UP)
   }
 
-  if(stepIntoMine()) {
+  if(stepOnMine()) {
     explode()
   }
 }
@@ -87,7 +87,7 @@ function moveDown() {
     turnTank(DOWN)
   }
 
-  if(stepIntoMine()) {
+  if(stepOnMine()) {
     explode()
   }
 }
@@ -101,7 +101,7 @@ function moveLeft() {
     turnTank(LEFT)
   }
 
-  if(stepIntoMine()) {
+  if(stepOnMine()) {
     explode()
   }
 }
@@ -115,7 +115,7 @@ function moveRight() {
     turnTank(RIGHT)
   }
 
-  if(stepIntoMine()) {
+  if(stepOnMine()) {
     explode()
   }
 }
