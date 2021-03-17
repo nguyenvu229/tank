@@ -45,9 +45,9 @@ function pushTank(tankStyle, position) {
   document.getElementById("tank").style[tankStyle] = position + "px"
 }
 
-function turnTank(degrees) {
-  degrees = "degrees(" + degrees + "deg)"
-  document.getElementById("tank").style["transform"] = degrees
+function turnTank(rotate) {
+  rotate = "rotate(" + rotate + "deg)"
+  document.getElementById("tank").style["transform"] = rotate
 }
 
 function moveTank(e) {
