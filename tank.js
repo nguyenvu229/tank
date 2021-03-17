@@ -11,7 +11,7 @@ getMinePosition()
 function getMinePosition() {
   mineTop = document.getElementById("boom").style["top"]
   mineTop = parseInt(mineTop)
-  
+
   mineLeft = document.getElementById("boom").style["left"]
   mineLeft = parseInt(mineLeft)
 }
@@ -45,9 +45,9 @@ function pushTank(tankStyle, position) {
   document.getElementById("tank").style[tankStyle] = position + "px"
 }
 
-function turnTank(rotate) {
-  rotate = "rotate(" + rotate + "deg)"
-  document.getElementById("tank").style["transform"] = rotate
+function turnTank(degrees) {
+  degrees = "degrees(" + degrees + "deg)"
+  document.getElementById("tank").style["transform"] = degrees
 }
 
 function moveTank(e) {
