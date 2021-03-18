@@ -80,16 +80,16 @@ function moveTank(e) {
   switch (keyCode) {
     case "ArrowUp":
       moveUp()
-      break;
+      break
     case "ArrowDown":
       moveDown()
-      break;
+      break
     case "ArrowLeft":
       moveLeft()
-      break;
+      break
     case "ArrowRight":
       moveRight()
-      break;
+      break
   }
 }
 
