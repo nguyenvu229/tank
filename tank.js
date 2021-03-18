@@ -4,15 +4,11 @@ const LEFT = 270
 const RIGHT = 90
 
 
-let hp
+let hp = 20
 let mineTop
 let mineLeft
 getMinePosition()
-getHP()
 
-function getHP() {
-  hp = 20
-}
 
 function getMinePosition() {
   mineTop = document.getElementById("boom").style["top"]
