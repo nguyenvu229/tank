@@ -4,8 +4,7 @@ const LEFT = 270
 const RIGHT = 90
 
 
-let hp = 20
-
+let hp
 let mineTop
 let mineLeft
 getMinePosition()
@@ -77,15 +76,20 @@ function getHit() {
 
 function moveTank(e) {
   let keyCode = e.key
-
-  if(keyCode == "ArrowUp") {
-    moveUp()
-  } else if(keyCode == "ArrowDown") {
-    moveDown()
-  } else if(keyCode == "ArrowLeft") {
-    moveLeft()
-  } else if(keyCode == "ArrowRight") {
-    moveRight()
+  
+  switch (keyCode) {
+    case "ArrowUp":
+      moveUp()
+      break;
+    case "ArrowDown":
+      moveDown()
+      break;
+    case "ArrowLeft":
+      moveLeft()
+      break;
+    case "ArrowRight":
+      moveRight()
+      break;
   }
 }
 
