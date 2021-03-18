@@ -4,9 +4,16 @@ const LEFT = 270
 const RIGHT = 90
 
 
-var mineTop
-var mineLeft
+let hp = 20
+
+let mineTop
+let mineLeft
 getMinePosition()
+getHP()
+
+function getHP() {
+  hp = 20
+}
 
 function getMinePosition() {
   mineTop = document.getElementById("boom").style["top"]
@@ -48,6 +55,24 @@ function pushTank(tankStyle, position) {
 function turnTank(rotate) {
   rotate = "rotate(" + rotate + "deg)"
   document.getElementById("tank").style["transform"] = rotate
+}
+
+function getHit() {
+  if(hp > 0) {
+    hp--
+    let hpColor
+
+    if(10 < hp && hp < 20) {
+      hpColor = "black"
+    } else if(6 <= hp && hp <= 10) {
+      hpColor = "yellow"
+    } else if(hp < 6) {
+      hpColor = "red"
+    }
+    
+    document.getElementById("hp").innerHTML = "HP: " + hp
+    document.getElementById("hp").style["color"] = hpColor
+  }
 }
 
 function moveTank(e) {
