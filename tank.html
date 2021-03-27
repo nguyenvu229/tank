@@ -9,7 +9,8 @@
 <body onkeydown = "moveTank(event)">
   <div style="width: 190px; height: 190px; border: 1px solid black; position: absolute" id="battleFiled">
     <img id="tank" src="tank.png" style="position: absolute; top: 0px; left: 0px;" width="19" height="19">
-    <img id="boom" src="boom.png" style="position: absolute; top: 57px; left: 57px;" width="19" height="19">
+    <img id="boom" src="boom.png" style="position: absolute; top: 95px; left: 95px;" width="19" height="19">
+    <img id="bullet" src="bullet.png" style="position: absolute; top: 0px; left: 0px; visibility: hidden;" width="19" height="19">
   </div>
 
   <table style="top: 200px; position: absolute">
@@ -49,16 +50,18 @@
   <table style="top: 300px; position: absolute">
     <tr>
       <td>
-        <button type="button" onclick="getHit()">Shot</button>
+        <button type="button" onclick="getHit()">Hit</button>
       </td>
-    </tr>
-    <tr>
       <td>
         <p id = "hp" style="color: green;">HP: 20</p>
       </td>
     </tr>
+    <tr>
+      <td>
+        <button type="button" onclick="fire()">Fire</button>
+      </td>
+    </tr>
   </table>
-
 
   <script src = "tank.js"></script>
   
