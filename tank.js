@@ -12,13 +12,14 @@ let mineLeft
 let addTop = 0
 let addLeft = 0
 getMinePosition()
+// randomGhostPosition()
 
 
 function getMinePosition() {
-  mineTop = document.getElementById("boom").style["top"]
+  mineTop = document.getElementById("bomb").style["top"]
   mineTop = parseInt(mineTop)
 
-  mineLeft = document.getElementById("boom").style["left"]
+  mineLeft = document.getElementById("bomb").style["left"]
   mineLeft = parseInt(mineLeft)
 }
 
@@ -60,17 +61,17 @@ function resetGame() {
   document.getElementById("tank").style.top = 0 + "px"
   document.getElementById("tank").src = "tank.png"
 
-  mineTop = (Math.floor(Math.random() * 9) + 1) * 19
-  mineLeft = (Math.floor(Math.random() * 9) + 1) * 19
+  mineTop = (Math.floor(Math.random() * 9) + 1) * 38
+  mineLeft = (Math.floor(Math.random() * 9) + 1) * 38
 
-  document.getElementById("boom").style["left"] = mineLeft + "px"
-  document.getElementById("boom").style["top"] = mineTop + "px"
-  document.getElementById("boom").style.visibility = "visible"
+  document.getElementById("bomb").style["left"] = mineLeft + "px"
+  document.getElementById("bomb").style["top"] = mineTop + "px"
+  document.getElementById("bomb").style.visibility = "visible"
 }
 
 function explode() {
   document.getElementById("tank").src = "explosion.png"
-  document.getElementById("boom").style.visibility = "hidden"
+  document.getElementById("bomb").style.visibility = "hidden"
 }
 
 function pushTank(tankStyle, position) {
@@ -104,8 +105,8 @@ function getHit() {
 function setBulletPosition() {
   let TankOnTop = (getTankTop() == 0)
   let TankOnLeft = (getTankLeft() == 0)
-  let TankOnDown = (getTankTop() == (190 - 19))
-  let TankOnRight = (getTankLeft() == (190 - 19))
+  let TankOnDown = (getTankTop() == (380 - 38))
+  let TankOnRight = (getTankLeft() == (380 - 38))
 
   let bulletTop = getTankTop() + addTop
   let bulletLeft = getTankLeft() + addLeft
@@ -128,8 +129,8 @@ function moveBullet(bulletDirection, id) {
 
   let BulletOnTop = (getBulletTop() == 0)
   let BulletOnLeft = (getBulletLeft() == 0)
-  let BulletOnDown = (getBulletTop() == (190 - 19))
-  let BulletOnRight = (getBulletLeft() == (190 - 19))
+  let BulletOnDown = (getBulletTop() == (380 - 38))
+  let BulletOnRight = (getBulletLeft() == (380 - 38))
 
   if ((BulletOnTop && bulletDirection == UP) ||
     (BulletOnDown && bulletDirection == DOWN) ||
@@ -149,17 +150,17 @@ function moveBullet(bulletDirection, id) {
 
 function fire() {
   if (tankDirection == UP) {
-    addTop = -19
+    addTop = -38
     addLeft = 0
   } else if (tankDirection == DOWN) {
-    addTop = 19
+    addTop = 38
     addLeft = 0
   } else if (tankDirection == LEFT) {
     addTop = 0
-    addLeft = -19
+    addLeft = -38
   } else if (tankDirection == RIGHT) {
     addTop = 0
-    addLeft = 19
+    addLeft = 38
   }
 
   setBulletPosition()
@@ -170,6 +171,29 @@ function fire() {
   }
   let id
   id = setInterval(implementFire, 100)
+}
+
+function randomGhostPosition() {
+  let ghostTop = new Array(5)
+  let ghostLeft = new Array(5)
+
+  for (let i = 0; i < 5; i++) {
+    ghostTop[i] = (Math.floor(Math.random() * 9) + 3) * 38
+    ghostLeft[i] = (Math.floor(Math.random() * 9) + 3) * 38
+
+    document.getElementById("bullet").style.left = bulletLeft + "px"
+    document.getElementById("bullet").style.top = bulletTop + "px"
+  }
+
+  // bulletTop += addTop
+  // bulletLeft += addLeft
+
+  // document.getElementById("bullet").style.left = bulletLeft + "px"
+  // document.getElementById("bullet").style.top = bulletTop + "px"
+}
+
+function moveGhost() {
+
 }
 
 function moveTank(e) {
@@ -190,7 +214,7 @@ function moveUp() {
   let isOnTop = (getTankTop() == 0)
 
   if (!isOnTop) {
-    let tankTop = getTankTop() - 19
+    let tankTop = getTankTop() - 38
     pushTank("top", tankTop)
     turnTank(UP)
   }
@@ -201,10 +225,10 @@ function moveUp() {
 }
 
 function moveDown() {
-  let isOnDown = (getTankTop() == 190 - 19)
+  let isOnDown = (getTankTop() == 380 - 38)
 
   if (!isOnDown) {
-    let tankTop = getTankTop() + 19
+    let tankTop = getTankTop() + 38
     pushTank("top", tankTop)
     turnTank(DOWN)
   }
@@ -218,7 +242,7 @@ function moveLeft() {
   let isOnLeft = (getTankLeft() == 0)
 
   if (!isOnLeft) {
-    let tankLeft = getTankLeft() - 19
+    let tankLeft = getTankLeft() - 38
     pushTank("left", tankLeft)
     turnTank(LEFT)
   }
@@ -229,10 +253,10 @@ function moveLeft() {
 }
 
 function moveRight() {
-  let isOnRight = (getTankLeft() == 190 - 19)
+  let isOnRight = (getTankLeft() == 380 - 38)
 
   if (!isOnRight) {
-    let tankLeft = getTankLeft() + 19
+    let tankLeft = getTankLeft() + 38
     pushTank("left", tankLeft)
     turnTank(RIGHT)
   }
