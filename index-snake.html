@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body onkeydown = "moveTank(event)">
+  
+  <div style="width: 380px; height: 380px; border: 1px solid black; position: absolute" id="battleFiled">
+    <img id="tank0" src="tank.png" style="position: absolute; top: 0px; left: 0px;" width="38" height="38">
+    <img id="tank1" src="tank.png" style="position: absolute; top: 0px; left: 0px;" width="38" height="38">
+    <img id="tank2" src="tank.png" style="position: absolute; top: 0px; left: 0px;" width="38" height="38">
+    <img id="tank3" src="tank.png" style="position: absolute; top: 0px; left: 0px;" width="38" height="38">
+    <img id="bomb" src="bomb.png" style="position: absolute; top: 114px; left: 114px;" width="38" height="38">
+    <img id="bullet" src="bullet.png" style="position: absolute; top: 0px; left: 0px; visibility: hidden;" width="38" height="38">
+  </div>
+
+  <table style="top: 400px; position: absolute">
+    <tr>
+      <td></td>
+      <td>
+        <input type="button" value="⬆" onclick="moveUp()">
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <input type="button" value="⬅" onclick="moveLeft()">
+      </td>
+      <td></td>
+      <td>
+        <input type="button" value="➡" onclick="moveRight()">
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <input type="button" value="⬇" onclick="moveDown()">
+      </td>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td>
+      </td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <table style="top: 500px; position: absolute">
+    <tr>
+      <td>
+        <button type="button" onclick="getHit()">Hit</button>
+      </td>
+      <td>
+        <p id = "hp" style="color: green;">HP: 20</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button type="button" onclick="fire()">Fire</button>
+      </td>
+    </tr>
+  </table>
+
+  <script src = "tank.js"></script>
+  
+</body>
+</html>
