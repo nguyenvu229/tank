@@ -3,7 +3,6 @@ const DOWN = 180
 const LEFT = 270
 const RIGHT = 90
 
-let tankDirection
 let bulletDirection
 let hp = 20
 let mineTop
@@ -13,6 +12,7 @@ let addTop = 0
 let addLeft = 0
 getMinePosition()
 
+let tankDatas = [[0, 0, UP], [0, 1 * 38, UP], [0, 2 * 38, UP], [0, 3 * 38, UP]]
 
 function getMinePosition() {
   mineTop = document.getElementById("bomb").style["top"]
@@ -20,18 +20,6 @@ function getMinePosition() {
 
   mineLeft = document.getElementById("bomb").style["left"]
   mineLeft = parseInt(mineLeft)
-}
-
-function getTankTop() {
-  let top = document.getElementById("tank").style["top"]
-  top = parseInt(top)
-  return top
-}
-
-function getTankLeft() {
-  let left = document.getElementById("tank").style["left"]
-  left = parseInt(left)
-  return left
 }
 
 function getBulletTop() {
@@ -47,17 +35,16 @@ function getBulletLeft() {
 }
 
 function stepOnMine() {
-  let curTop = getTankTop()
-  let curLeft = getTankLeft()
-
-  let isOnMine = (curTop == mineTop && curLeft == mineLeft)
+  let isOnMine = (tankDatas[0][0] == mineTop && tankDatas[0][1] == mineLeft)
   return isOnMine
 }
 
 function resetGame() {
   turnTank(UP)
-  document.getElementById("tank").style.left = 0 + "px"
-  document.getElementById("tank").style.top = 0 + "px"
+  tankDatas[0][1] = 0
+  tankDatas[0][0] = 0
+  document.getElementById("tank").style.left = tankDatas[0][1] + "px"
+  document.getElementById("tank").style.top = tankDatas[0][0] + "px"
   document.getElementById("tank").src = "tank.png"
 
   mineTop = (Math.floor(Math.random() * 9) + 1) * 38
@@ -73,14 +60,14 @@ function explode() {
   document.getElementById("bomb").style.visibility = "hidden"
 }
 
-function pushTank(tankStyle, position) {
-  document.getElementById("tank").style[tankStyle] = position + "px"
-}
-
-function turnTank(rotate) {
-  tankDirection = rotate
-  rotate = "rotate(" + rotate + "deg)"
-  document.getElementById("tank").style["transform"] = rotate
+function redrawTanks() {
+  for (let i = 0; i < tankDatas.length; i++) {
+    let id = "tank" + i
+    document.getElementById(id).style["top"] = tankDatas[i][0] + "px"
+    document.getElementById(id).style["left"] = tankDatas[i][1] + "px"
+    rotate = "rotate(" + tankDatas[i][2] + "deg)"
+    document.getElementById(id).style["transform"] = rotate
+  }
 }
 
 function getHit() {
@@ -102,18 +89,18 @@ function getHit() {
 }
 
 function setBulletPosition() {
-  let TankOnTop = (getTankTop() == 0)
-  let TankOnLeft = (getTankLeft() == 0)
-  let TankOnDown = (getTankTop() == (380 - 38))
-  let TankOnRight = (getTankLeft() == (380 - 38))
+  let TankOnTop = (tankDatas[0][0] == 0)
+  let TankOnLeft = (tankDatas[0][1] == 0)
+  let TankOnDown = (tankDatas[0][0] == (380 - 38))
+  let TankOnRight = (tankDatas[0][1] == (380 - 38))
 
-  let bulletTop = getTankTop() + addTop
-  let bulletLeft = getTankLeft() + addLeft
+  let bulletTop = tankDatas[0][0] + addTop
+  let bulletLeft = tankDatas[0][1] + addLeft
 
-  if ((TankOnTop && tankDirection == UP) ||
-    (TankOnDown && tankDirection == DOWN) ||
-    (TankOnLeft && tankDirection == LEFT) ||
-    (TankOnRight && tankDirection == RIGHT)) {
+  if ((TankOnTop && tankDatas[0][2] == UP) ||
+    (TankOnDown && tankDatas[0][2] == DOWN) ||
+    (TankOnLeft && tankDatas[0][2] == LEFT) ||
+    (TankOnRight && tankDatas[0][2] == RIGHT)) {
 
   } else {
     document.getElementById("bullet").style.left = bulletLeft + "px"
@@ -148,22 +135,22 @@ function moveBullet(bulletDirection, id) {
 }
 
 function fire() {
-  if (tankDirection == UP) {
+  if (tankDatas[0][2] == UP) {
     addTop = -38
     addLeft = 0
-  } else if (tankDirection == DOWN) {
+  } else if (tankDatas[0][2] == DOWN) {
     addTop = 38
     addLeft = 0
-  } else if (tankDirection == LEFT) {
+  } else if (tankDatas[0][2] == LEFT) {
     addTop = 0
     addLeft = -38
-  } else if (tankDirection == RIGHT) {
+  } else if (tankDatas[0][2] == RIGHT) {
     addTop = 0
     addLeft = 38
   }
 
   setBulletPosition()
-  bulletDirection = tankDirection
+  bulletDirection = tankDatas[0][2]
 
   function implementFire() {
     moveBullet(bulletDirection, id)
@@ -187,12 +174,12 @@ function moveTank(e) {
 }
 
 function moveUp() {
-  let isOnTop = (getTankTop() == 0)
-
+  let isOnTop = (tankDatas[0][0] == 0)
   if (!isOnTop) {
-    let tankTop = getTankTop() - 38
-    pushTank("top", tankTop)
-    turnTank(UP)
+    flockCells();
+    tankDatas[0][0] = tankDatas[0][0] - 38
+    tankDatas[0][2] = UP
+    redrawTanks()
   }
   if (stepOnMine()) {
     explode()
@@ -201,12 +188,14 @@ function moveUp() {
 }
 
 function moveDown() {
-  let isOnDown = (getTankTop() == 380 - 38)
+  let isOnDown = (tankDatas[0][0] == 380 - 38)
 
   if (!isOnDown) {
-    let tankTop = getTankTop() + 38
-    pushTank("top", tankTop)
-    turnTank(DOWN)
+    flockCells();
+    tankDatas[0][0] = tankDatas[0][0] + 38
+    tankDatas[0][2] = DOWN
+
+    redrawTanks()
   }
   if (stepOnMine()) {
     explode()
@@ -215,12 +204,13 @@ function moveDown() {
 }
 
 function moveLeft() {
-  let isOnLeft = (getTankLeft() == 0)
+  let isOnLeft = (tankDatas[0][1] == 0)
 
   if (!isOnLeft) {
-    let tankLeft = getTankLeft() - 38
-    pushTank("left", tankLeft)
-    turnTank(LEFT)
+    flockCells();
+    tankDatas[0][1] = tankDatas[0][1] - 38
+    tankDatas[0][2] = LEFT
+    redrawTanks()
   }
   if (stepOnMine()) {
     explode()
@@ -229,15 +219,32 @@ function moveLeft() {
 }
 
 function moveRight() {
-  let isOnRight = (getTankLeft() == 380 - 38)
+  let isOnRight = (tankDatas[0][1] == 380 - 38)
 
   if (!isOnRight) {
-    let tankLeft = getTankLeft() + 38
-    pushTank("left", tankLeft)
-    turnTank(RIGHT)
+    flockCells();
+    tankDatas[0][1] = tankDatas[0][1] + 38
+    tankDatas[0][2] = RIGHT
+    redrawTanks()
   }
   if (stepOnMine()) {
     explode()
     setTimeout(resetGame(), 1000)
   }
+}
+
+function flockCells() {
+  for (let i = tankDatas.length - 1; i > 0; i--) {
+    tankDatas[i][0] = tankDatas[i - 1][0]
+    tankDatas[i][1] = tankDatas[i - 1][1]
+    tankDatas[i][2] = tankDatas[i - 1][2]
+  }
+}
+
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
 }
