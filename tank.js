@@ -11,7 +11,6 @@ let mineLeft
 let addTop = 0
 let addLeft = 0
 getMinePosition()
-// randomGhostPosition()
 
 let tankDatas = [[0, 0, UP], [0, 1 * 38, UP], [0, 2 * 38, UP], [0, 3 * 38, UP]]
 
@@ -158,29 +157,6 @@ function fire() {
   }
   let id
   id = setInterval(implementFire, 100)
-}
-
-function randomGhostPosition() {
-  let ghostTop = new Array(5)
-  let ghostLeft = new Array(5)
-
-  for (let i = 0; i < 5; i++) {
-    ghostTop[i] = (Math.floor(Math.random() * 9) + 3) * 38
-    ghostLeft[i] = (Math.floor(Math.random() * 9) + 3) * 38
-
-    document.getElementById("bullet").style.left = bulletLeft + "px"
-    document.getElementById("bullet").style.top = bulletTop + "px"
-  }
-
-  // bulletTop += addTop
-  // bulletLeft += addLeft
-
-  // document.getElementById("bullet").style.left = bulletLeft + "px"
-  // document.getElementById("bullet").style.top = bulletTop + "px"
-}
-
-function moveGhost() {
-
 }
 
 function moveTank(e) {
