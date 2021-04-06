@@ -12,7 +12,6 @@ let mineLeft
 let addTop = 0
 let addLeft = 0
 getMinePosition()
-// randomGhostPosition()
 
 
 function getMinePosition() {
@@ -173,29 +172,6 @@ function fire() {
   id = setInterval(implementFire, 100)
 }
 
-function randomGhostPosition() {
-  let ghostTop = new Array(5)
-  let ghostLeft = new Array(5)
-
-  for (let i = 0; i < 5; i++) {
-    ghostTop[i] = (Math.floor(Math.random() * 9) + 3) * 38
-    ghostLeft[i] = (Math.floor(Math.random() * 9) + 3) * 38
-
-    document.getElementById("bullet").style.left = bulletLeft + "px"
-    document.getElementById("bullet").style.top = bulletTop + "px"
-  }
-
-  // bulletTop += addTop
-  // bulletLeft += addLeft
-
-  // document.getElementById("bullet").style.left = bulletLeft + "px"
-  // document.getElementById("bullet").style.top = bulletTop + "px"
-}
-
-function moveGhost() {
-
-}
-
 function moveTank(e) {
   let keyCode = e.key
 
@@ -264,12 +240,4 @@ function moveRight() {
     explode()
     setTimeout(resetGame(), 1000)
   }
-}
-
-function sleep(milliseconds) {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
 }
