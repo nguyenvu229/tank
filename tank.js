@@ -214,9 +214,9 @@ function moveDown() {
 }
 
 function moveLeft() {
-  let tankIsOnLeft = (tankLeft == 0)
+  let isOnLeft = (tankLeft == 0)
 
-  if (!tankIsOnLeft) {
+  if (!isOnLeft) {
     tankLeft = tankLeft - 38
     tankDirection = LEFT
     redrawTank()
@@ -224,9 +224,9 @@ function moveLeft() {
 }
 
 function moveRight() {
-  let tankIsOnRight = (tankLeft == 380 - 38)
+  let isOnRight = (tankLeft == 380 - 38)
 
-  if (!tankIsOnRight) {
+  if (!isOnRight) {
     tankLeft = tankLeft + 38
     tankDirection = RIGHT
     redrawTank()
