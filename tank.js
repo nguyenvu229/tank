@@ -5,18 +5,18 @@ const RIGHT = 90
 
 let tankTop = 0
 let tankLeft = 0
+let tankDirection
 
 let bulletTop
 let bulletLeft
-
-let tankDirection
 let bulletDirection
-let hp = 20
+let addBulletTop = 0
+let addBulletLeft = 0
+
 let mineTop
 let mineLeft
 
-let addTop = 0
-let addLeft = 0
+let hp = 20
 getMinePosition()
 
 
@@ -81,28 +81,34 @@ function getHit() {
   }
 }
 
-function setBulletPosition() {
+function haveSpaceToSetBullet() {
   let TankOnTop = (tankTop == 0)
   let TankOnLeft = (tankLeft == 0)
   let TankOnDown = (tankTop == (380 - 38))
   let TankOnRight = (tankLeft == (380 - 38))
-
-  bulletTop = tankTop + addTop
-  bulletLeft = tankLeft + addLeft
 
   if ((TankOnTop && tankDirection == UP) ||
     (TankOnDown && tankDirection == DOWN) ||
     (TankOnLeft && tankDirection == LEFT) ||
     (TankOnRight && tankDirection == RIGHT)) {
 
-  } else {
+    return false
+  }
+  return true
+}
+
+function setBulletPosition() {
+  if (haveSpaceToSetBullet()) {
+    bulletTop = tankTop + addBulletTop
+    bulletLeft = tankLeft + addBulletLeft
+
     document.getElementById("bullet").style.left = bulletLeft + "px"
     document.getElementById("bullet").style.top = bulletTop + "px"
     document.getElementById("bullet").style.visibility = "visible"
   }
 }
 
-function moveBullet(bulletDirection, id) {
+function bulletOnBorder() {
   let BulletOnTop = (bulletTop == 0)
   let BulletOnLeft = (bulletLeft == 0)
   let BulletOnDown = (bulletTop == (380 - 38))
@@ -113,11 +119,18 @@ function moveBullet(bulletDirection, id) {
     (BulletOnLeft && bulletDirection == LEFT) ||
     (BulletOnRight && bulletDirection == RIGHT)) {
 
+    return true
+  }
+  return false
+}
+
+function moveBullet(id) {
+  if (bulletOnBorder()) {
     clearInterval(id)
     document.getElementById("bullet").style.visibility = "hidden"
   } else {
-    bulletTop += addTop
-    bulletLeft += addLeft
+    bulletTop += addBulletTop
+    bulletLeft += addBulletLeft
 
     document.getElementById("bullet").style.left = bulletLeft + "px"
     document.getElementById("bullet").style.top = bulletTop + "px"
@@ -126,24 +139,24 @@ function moveBullet(bulletDirection, id) {
 
 function fire() {
   if (tankDirection == UP) {
-    addTop = -38
-    addLeft = 0
+    addBulletTop = -38
+    addBulletLeft = 0
   } else if (tankDirection == DOWN) {
-    addTop = 38
-    addLeft = 0
+    addBulletTop = 38
+    addBulletLeft = 0
   } else if (tankDirection == LEFT) {
-    addTop = 0
-    addLeft = -38
+    addBulletTop = 0
+    addBulletLeft = -38
   } else if (tankDirection == RIGHT) {
-    addTop = 0
-    addLeft = 38
+    addBulletTop = 0
+    addBulletLeft = 38
   }
-
-  setBulletPosition()
+  
   bulletDirection = tankDirection
+  setBulletPosition()
 
   function implementFire() {
-    moveBullet(bulletDirection, id)
+    moveBullet(id)
   }
   let id
   id = setInterval(implementFire, 100)
@@ -173,7 +186,7 @@ function moveUp() {
   }
   if (stepOnMine()) {
     explode()
-    setTimeout(resetGame(), 10000)
+    setTimeout(resetGame(), 1000)
   }
 }
 
