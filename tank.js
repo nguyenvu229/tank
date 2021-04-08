@@ -28,18 +28,6 @@ function getMinePosition() {
   mineLeft = parseInt(mineLeft)
 }
 
-function getBulletTop() {
-  let top = document.getElementById("bullet").style["top"]
-  top = parseInt(top)
-  return top
-}
-
-function getBulletLeft() {
-  let left = document.getElementById("bullet").style["left"]
-  left = parseInt(left)
-  return left
-}
-
 function stepOnMine() {
   let isOnMine = (tankTop == mineTop && tankLeft == mineLeft)
   return isOnMine
