@@ -99,8 +99,8 @@ function setBulletPosition() {
   let TankOnDown = (tankTop == (380 - 38))
   let TankOnRight = (tankLeft == (380 - 38))
 
-  let bulletTop = tankTop + addTop
-  let bulletLeft = tankLeft + addLeft
+  bulletTop = tankTop + addTop
+  bulletLeft = tankLeft + addLeft
 
   if ((TankOnTop && tankDirection == UP) ||
     (TankOnDown && tankDirection == DOWN) ||
@@ -115,13 +115,10 @@ function setBulletPosition() {
 }
 
 function moveBullet(bulletDirection, id) {
-  let bulletTop = getBulletTop()
-  let bulletLeft = getBulletLeft()
-
-  let BulletOnTop = (getBulletTop() == 0)
-  let BulletOnLeft = (getBulletLeft() == 0)
-  let BulletOnDown = (getBulletTop() == (380 - 38))
-  let BulletOnRight = (getBulletLeft() == (380 - 38))
+  let BulletOnTop = (bulletTop == 0)
+  let BulletOnLeft = (bulletLeft == 0)
+  let BulletOnDown = (bulletTop == (380 - 38))
+  let BulletOnRight = (bulletLeft == (380 - 38))
 
   if ((BulletOnTop && bulletDirection == UP) ||
     (BulletOnDown && bulletDirection == DOWN) ||
