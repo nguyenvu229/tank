@@ -21,10 +21,10 @@ getMinePosition()
 
 
 function getMinePosition() {
-  mineTop = document.getElementById("bomb").style["top"]
+  mineTop = document.getElementById("bomb").style.top
   mineTop = parseInt(mineTop)
 
-  mineLeft = document.getElementById("bomb").style["left"]
+  mineLeft = document.getElementById("bomb").style.left
   mineLeft = parseInt(mineLeft)
 }
 
@@ -34,9 +34,10 @@ function stepOnMine() {
 }
 
 function resetGame() {
-  document.getElementById("tank").style["transform"] = UP
+  tankDirection = UP
   tankTop = 0
   tankLeft = 0
+  document.getElementById("tank").style["transform"] = "rotate(" + tankDirection + "deg)"
 
   document.getElementById("tank").style.left = 0 + "px"
   document.getElementById("tank").style.top = 0 + "px"
@@ -45,8 +46,8 @@ function resetGame() {
   mineTop = (Math.floor(Math.random() * 9) + 1) * 38
   mineLeft = (Math.floor(Math.random() * 9) + 1) * 38
 
-  document.getElementById("bomb").style["left"] = mineLeft + "px"
-  document.getElementById("bomb").style["top"] = mineTop + "px"
+  document.getElementById("bomb").style.left = mineLeft + "px"
+  document.getElementById("bomb").style.top = mineTop + "px"
   document.getElementById("bomb").style.visibility = "visible"
 }
 
@@ -98,6 +99,20 @@ function haveSpaceToSetBullet() {
 }
 
 function setBulletPosition() {
+  if (tankDirection == UP) {
+    addBulletTop = -38
+    addBulletLeft = 0
+  } else if (tankDirection == DOWN) {
+    addBulletTop = 38
+    addBulletLeft = 0
+  } else if (tankDirection == LEFT) {
+    addBulletTop = 0
+    addBulletLeft = -38
+  } else if (tankDirection == RIGHT) {
+    addBulletTop = 0
+    addBulletLeft = 38
+  }
+
   if (haveSpaceToSetBullet()) {
     bulletTop = tankTop + addBulletTop
     bulletLeft = tankLeft + addBulletLeft
@@ -138,20 +153,6 @@ function moveBullet(id) {
 }
 
 function fire() {
-  if (tankDirection == UP) {
-    addBulletTop = -38
-    addBulletLeft = 0
-  } else if (tankDirection == DOWN) {
-    addBulletTop = 38
-    addBulletLeft = 0
-  } else if (tankDirection == LEFT) {
-    addBulletTop = 0
-    addBulletLeft = -38
-  } else if (tankDirection == RIGHT) {
-    addBulletTop = 0
-    addBulletLeft = 38
-  }
-  
   bulletDirection = tankDirection
   setBulletPosition()
 
@@ -205,9 +206,9 @@ function moveDown() {
 }
 
 function moveLeft() {
-  let isOnLeft = (tankLeft == 0)
+  let tankIsOnLeft = (tankLeft == 0)
 
-  if (!isOnLeft) {
+  if (!tankIsOnLeft) {
     tankLeft = tankLeft - 38
     tankDirection = LEFT
     redrawTank()
@@ -219,9 +220,9 @@ function moveLeft() {
 }
 
 function moveRight() {
-  let isOnRight = (tankLeft == 380 - 38)
+  let tankIsOnRight = (tankLeft == 380 - 38)
 
-  if (!isOnRight) {
+  if (!tankIsOnRight) {
     tankLeft = tankLeft + 38
     tankDirection = RIGHT
     redrawTank()
