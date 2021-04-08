@@ -182,6 +182,11 @@ function moveTank(e) {
   } else if (keyCode == "ArrowRight") {
     moveRight()
   }
+
+  if (stepOnMine()) {
+    explode()
+    setTimeout(resetGame(), 1000)
+  }
 }
 
 function moveUp() {
@@ -206,10 +211,6 @@ function moveDown() {
     tankDirection = DOWN
     redrawTank()
   }
-  if (stepOnMine()) {
-    explode()
-    setTimeout(resetGame(), 1000)
-  }
 }
 
 function moveLeft() {
@@ -220,10 +221,6 @@ function moveLeft() {
     tankDirection = LEFT
     redrawTank()
   }
-  if (stepOnMine()) {
-    explode()
-    setTimeout(resetGame(), 1000)
-  }
 }
 
 function moveRight() {
@@ -233,9 +230,5 @@ function moveRight() {
     tankLeft = tankLeft + 38
     tankDirection = RIGHT
     redrawTank()
-  }
-  if (stepOnMine()) {
-    explode()
-    setTimeout(resetGame(), 1000)
   }
 }
