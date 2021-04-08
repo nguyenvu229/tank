@@ -3,6 +3,12 @@ const DOWN = 180
 const LEFT = 270
 const RIGHT = 90
 
+let tankTop = 0
+let tankLeft = 0
+
+let bulletTop
+let bulletLeft
+
 let tankDirection
 let bulletDirection
 let hp = 20
@@ -22,18 +28,6 @@ function getMinePosition() {
   mineLeft = parseInt(mineLeft)
 }
 
-function getTankTop() {
-  let top = document.getElementById("tank").style["top"]
-  top = parseInt(top)
-  return top
-}
-
-function getTankLeft() {
-  let left = document.getElementById("tank").style["left"]
-  left = parseInt(left)
-  return left
-}
-
 function getBulletTop() {
   let top = document.getElementById("bullet").style["top"]
   top = parseInt(top)
@@ -47,15 +41,15 @@ function getBulletLeft() {
 }
 
 function stepOnMine() {
-  let curTop = getTankTop()
-  let curLeft = getTankLeft()
-
-  let isOnMine = (curTop == mineTop && curLeft == mineLeft)
+  let isOnMine = (tankTop == mineTop && tankLeft == mineLeft)
   return isOnMine
 }
 
 function resetGame() {
-  turnTank(UP)
+  document.getElementById("tank").style["transform"] = UP
+  tankTop = 0
+  tankLeft = 0
+
   document.getElementById("tank").style.left = 0 + "px"
   document.getElementById("tank").style.top = 0 + "px"
   document.getElementById("tank").src = "tank.png"
@@ -73,13 +67,11 @@ function explode() {
   document.getElementById("bomb").style.visibility = "hidden"
 }
 
-function pushTank(tankStyle, position) {
-  document.getElementById("tank").style[tankStyle] = position + "px"
-}
+function redrawTank() {
+  document.getElementById("tank").style.top = tankTop + "px"
+  document.getElementById("tank").style.left = tankLeft + "px"
 
-function turnTank(rotate) {
-  tankDirection = rotate
-  rotate = "rotate(" + rotate + "deg)"
+  rotate = "rotate(" + tankDirection + "deg)"
   document.getElementById("tank").style["transform"] = rotate
 }
 
@@ -102,13 +94,13 @@ function getHit() {
 }
 
 function setBulletPosition() {
-  let TankOnTop = (getTankTop() == 0)
-  let TankOnLeft = (getTankLeft() == 0)
-  let TankOnDown = (getTankTop() == (380 - 38))
-  let TankOnRight = (getTankLeft() == (380 - 38))
+  let TankOnTop = (tankTop == 0)
+  let TankOnLeft = (tankLeft == 0)
+  let TankOnDown = (tankTop == (380 - 38))
+  let TankOnRight = (tankLeft == (380 - 38))
 
-  let bulletTop = getTankTop() + addTop
-  let bulletLeft = getTankLeft() + addLeft
+  let bulletTop = tankTop + addTop
+  let bulletLeft = tankLeft + addLeft
 
   if ((TankOnTop && tankDirection == UP) ||
     (TankOnDown && tankDirection == DOWN) ||
@@ -187,12 +179,12 @@ function moveTank(e) {
 }
 
 function moveUp() {
-  let isOnTop = (getTankTop() == 0)
+  let isOnTop = (tankTop == 0)
 
   if (!isOnTop) {
-    let tankTop = getTankTop() - 38
-    pushTank("top", tankTop)
-    turnTank(UP)
+    tankTop = tankTop - 38
+    tankDirection = UP
+    redrawTank()
   }
   if (stepOnMine()) {
     explode()
@@ -201,12 +193,12 @@ function moveUp() {
 }
 
 function moveDown() {
-  let isOnDown = (getTankTop() == 380 - 38)
+  let isOnDown = (tankTop == 380 - 38)
 
   if (!isOnDown) {
-    let tankTop = getTankTop() + 38
-    pushTank("top", tankTop)
-    turnTank(DOWN)
+    tankTop = tankTop + 38
+    tankDirection = DOWN
+    redrawTank()
   }
   if (stepOnMine()) {
     explode()
@@ -215,12 +207,12 @@ function moveDown() {
 }
 
 function moveLeft() {
-  let isOnLeft = (getTankLeft() == 0)
+  let isOnLeft = (tankLeft == 0)
 
   if (!isOnLeft) {
-    let tankLeft = getTankLeft() - 38
-    pushTank("left", tankLeft)
-    turnTank(LEFT)
+    tankLeft = tankLeft - 38
+    tankDirection = LEFT
+    redrawTank()
   }
   if (stepOnMine()) {
     explode()
@@ -229,12 +221,12 @@ function moveLeft() {
 }
 
 function moveRight() {
-  let isOnRight = (getTankLeft() == 380 - 38)
+  let isOnRight = (tankLeft == 380 - 38)
 
   if (!isOnRight) {
-    let tankLeft = getTankLeft() + 38
-    pushTank("left", tankLeft)
-    turnTank(RIGHT)
+    tankLeft = tankLeft + 38
+    tankDirection = RIGHT
+    redrawTank()
   }
   if (stepOnMine()) {
     explode()
