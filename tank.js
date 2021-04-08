@@ -53,6 +53,14 @@ function resetTank() {
   document.getElementById("tank").src = "tank.png"
 }
 
+function redrawTank() {
+  document.getElementById("tank").style.top = tankTop + "px"
+  document.getElementById("tank").style.left = tankLeft + "px"
+
+  rotate = "rotate(" + tankDirection + "deg)"
+  document.getElementById("tank").style["transform"] = rotate
+}
+
 function resetGame() {
   resetTank()
   resetMine()
@@ -61,14 +69,6 @@ function resetGame() {
 function explode() {
   document.getElementById("tank").src = "explosion.png"
   document.getElementById("bomb").style.visibility = "hidden"
-}
-
-function redrawTank() {
-  document.getElementById("tank").style.top = tankTop + "px"
-  document.getElementById("tank").style.left = tankLeft + "px"
-
-  rotate = "rotate(" + tankDirection + "deg)"
-  document.getElementById("tank").style["transform"] = rotate
 }
 
 function getHit() {
