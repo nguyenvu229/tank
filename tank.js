@@ -33,7 +33,16 @@ function stepOnMine() {
   return isOnMine
 }
 
-function resetGame() {
+function resetMine() {
+  mineTop = (Math.floor(Math.random() * 9) + 1) * 38
+  mineLeft = (Math.floor(Math.random() * 9) + 1) * 38
+
+  document.getElementById("bomb").style.left = mineLeft + "px"
+  document.getElementById("bomb").style.top = mineTop + "px"
+  document.getElementById("bomb").style.visibility = "visible"
+}
+
+function resetTank() {
   tankDirection = UP
   tankTop = 0
   tankLeft = 0
@@ -42,13 +51,11 @@ function resetGame() {
   document.getElementById("tank").style.left = 0 + "px"
   document.getElementById("tank").style.top = 0 + "px"
   document.getElementById("tank").src = "tank.png"
+}
 
-  mineTop = (Math.floor(Math.random() * 9) + 1) * 38
-  mineLeft = (Math.floor(Math.random() * 9) + 1) * 38
-
-  document.getElementById("bomb").style.left = mineLeft + "px"
-  document.getElementById("bomb").style.top = mineTop + "px"
-  document.getElementById("bomb").style.visibility = "visible"
+function resetGame() {
+  resetTank()
+  resetMine()
 }
 
 function explode() {
