@@ -197,10 +197,6 @@ function moveUp() {
     tankDirection = UP
     redrawTank()
   }
-  if (stepOnMine()) {
-    explode()
-    setTimeout(resetGame(), 1000)
-  }
 }
 
 function moveDown() {
