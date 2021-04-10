@@ -21,11 +21,8 @@ getMinePosition()
 
 
 function getMinePosition() {
-  mineTop = document.getElementById("bomb").style.top
-  mineTop = parseInt(mineTop)
-
-  mineLeft = document.getElementById("bomb").style.left
-  mineLeft = parseInt(mineLeft)
+  mineTop = parseInt(document.getElementById("bomb").style.top)
+  mineLeft = parseInt(document.getElementById("bomb").style.left)
 }
 
 function stepOnMine() {
@@ -43,11 +40,11 @@ function resetMine() {
 }
 
 function resetTank() {
-  tankDirection = UP
   tankTop = 0
   tankLeft = 0
-  document.getElementById("tank").style["transform"] = "rotate(" + tankDirection + "deg)"
+  tankDirection = UP
 
+  document.getElementById("tank").style["transform"] = "rotate(" + tankDirection + "deg)"
   document.getElementById("tank").style.left = 0 + "px"
   document.getElementById("tank").style.top = 0 + "px"
   document.getElementById("tank").src = "tank.png"
